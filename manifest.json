@@ -1,6 +1,6 @@
 {
   "name": "Bestiaire Draft Enhancer",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "author": {"name": "Daan Broekhof", "email": "daan.broekhof@gmail.com"},
   "manifest_version": 2,
   "description": "Enhances the deck-building features of draft.bestiaire.org with casting-cost sorting, easier selecting. Loads data from mtgjson.com.",
@@ -20,9 +20,7 @@
     }
   ],
   "web_accessible_resources": [
-  	"js/jquery/jquery.min.map",
   	"js/jquery/jquery.min.js",
-  	"js/jquery/jquery.js",
   	"js/bestiary-deck.js",
   	"icons/0mana-16.png",
   	"icons/1mana-16.png",

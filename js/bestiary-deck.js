@@ -1,7 +1,6 @@
 var setData = {count: 0};
 var imageNameMapping = {'-generic-' : {}};
 var dataPath = 'http://mtgjson.com/json/';
-var dataProxyPath = 'http://yarr.me/mtg-json-p/';
 
 var colorTypeToColor = {
 	'W' : 'White',
@@ -16,9 +15,21 @@ var maxExtraLandId = 1000;
 var basicLands = {};
 var sortedCards = [];
 var unsaved = false;
+if (!manaImages) {
+	var manaImages = {
+		'X' : 'icons/xmana-16.png',
+		'0' : 'icons/0mana-16.png',
+		'1' : 'icons/1mana-16.png',
+		'2' : 'icons/2mana-16.png',
+		'3' : 'icons/3mana-16.png',
+		'4' : 'icons/4mana-16.png',
+		'5' : 'icons/5mana-16.png',
+		'6' : 'icons/6mana-16.png',
+	};
+}
+
 
 $(document).ready(function() {
-	//checkBestiarySets();
 	initCardData(buildNewDeckBuilderView);
 });
 
@@ -690,7 +701,7 @@ function setCardsView(type, view, split)
 	$('tr.'+type+' table.land-split tr:eq(1) td:eq(5)').text(countLandType.Others);
 }
 
-
+// Unused function to check if all cards can be detected.
 function checkBestiarySets()
 {
 	var i = 0;
