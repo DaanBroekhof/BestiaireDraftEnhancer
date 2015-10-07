@@ -207,19 +207,40 @@ var colorOrder = {
 	'Red' : 3,
 	'Green' : 4,
 };
+var cmcColorOrder = {
+	'W' : 0,
+	'U' : 1,
+	'B' : 2,
+	'R' : 3,
+	'G' : 4,
+};
 function getCardOrder(card)
 {
 	var cardOrder = 0;
 	if ('colors' in card.info && card.info.colors.length == 1)
-		cardOrder = colorOrder[card.info.colors[0]];
+		cardOrder = colorOrder[card.info.colors[0]]; // Colored
 	else if ('colors' in card.info && card.info.colors.length > 1)
-		cardOrder = 5;
-	else if ($.inArray('Land', card.info.types) == -1)
-		cardOrder = 6;
+		cardOrder = 5; // Multicolor
+	else if ($.inArray('Land', card.info.types) != -1)
+		cardOrder = 6; // Land
+	else if ('manaCost' in card.info)
+	{
+		// See if there is a single-color in the casting cost, none, or multiple
+		var cmcColors = card.info.manaCost.match(/[WBUGR]/gi);
+		if (cmcColors == null || cmcColors.length == 0)
+			cardOrder = 8; // Colorless
+		else if (cmcColors.length == 1)
+			cardOrder = cmcColorOrder[cmcColors[0]]; // Colored
+		else
+			cardOrder = 5; // Multicolor
+	}
 	else if (card.info.type != 'Conspiracy')
-		cardOrder = 7;
+		cardOrder = 7; // Colorless
 	else
-		cardOrder = 8;
+		cardOrder = 8; // Conspiracy
+	
+	if ('cmc' in card.info)
+		cardOrder += card.info.cmc / 100;
 
 	return cardOrder;
 }
