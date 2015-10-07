@@ -33,7 +33,6 @@ $(document).ready(function() {
 	initCardData(buildNewDeckBuilderView);
 });
 
-
 function initCardData(onFinish) {
 	var usedSets = [];
 
@@ -222,7 +221,11 @@ function getCardOrder(card)
 	else if ('colors' in card.info && card.info.colors.length > 1)
 		cardOrder = 5; // Multicolor
 	else if ($.inArray('Land', card.info.types) != -1)
+	{
 		cardOrder = 6; // Land
+		if (card.info.rarity != "Basic Land")
+			cardOrder += 0.5;
+	}
 	else if ('manaCost' in card.info)
 	{
 		// See if there is a single-color in the casting cost, none, or multiple
