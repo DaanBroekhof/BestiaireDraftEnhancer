@@ -240,6 +240,13 @@ var columnColorOrder = {
 	'Blue' : 3,
 	'Green' : 4,
 };
+var columnCmcColorOrder = {
+	'B' : 0,
+	'R' : 1,
+	'W' : 2,
+	'U' : 3,
+	'G' : 4,
+};
 function getColorColumn(card)
 {
 	var col = 0;
@@ -249,10 +256,21 @@ function getColorColumn(card)
 		col = 6;
 	else if ($.inArray('Land', card.info.types) !== -1)
 		col = 7;
-	else if ($.inArray('Artifact', card.info.types) !== -1)
-		col = 5;
+	else if ('manaCost' in card.info)
+	{
+		// See if there is a single-color in the casting cost, none, or multiple
+		var cmcColors = card.info.manaCost.match(/[WBUGR]/gi);
+		if (cmcColors == null || cmcColors.length == 0)
+			col = 5;
+		else if (cmcColors.length == 1)
+			col = columnCmcColorOrder[cmcColors[0]];
+		else
+			col = 6;
+	}
 	else
-		col = 6; // Rest is 'multicolor'
+	{
+		col = 6; // Rest is considered 'multicolor', but should not really occur.
+	}
 	return col;
 }
 
