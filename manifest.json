@@ -12,7 +12,8 @@
   "content_scripts": [
     {
       "matches": [
-        "http://draft.bestiaire.org/build.php"
+        "http://draft.bestiaire.org/build.php",
+        "http://draft.bestiaire.org/ranking.php"
       ],
       "js": [
         "src/inject/inject.js"
